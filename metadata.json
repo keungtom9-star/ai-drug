@@ -1,0 +1,7 @@
+{
+  "name": "Integrated AI Drug Tutor",
+  "description": "A comprehensive pharmacology learning tool featuring AI-powered case studies, adaptive quizzes with an AI tutor, flashcards, and a searchable drug database with Google Sheets integration.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
