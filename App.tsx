@@ -24,9 +24,9 @@ import {
   Search, 
   BookOpen, 
   GraduationCap, 
-  Settings as SettingsIcon, 
+  Building2,
+  Stethoscope,
   BarChart3, 
-  Volume2, 
   Database,
   Maximize2,
   Minimize2
@@ -36,7 +36,6 @@ import {
 import QuizView from './components/QuizView';
 import FlashcardView from './components/FlashcardView';
 import SearchView from './components/SearchView';
-import SettingsPanel from './components/SettingsPanel';
 import ProgressModal from './components/ProgressModal';
 
 const App: React.FC = () => {
@@ -49,7 +48,6 @@ const App: React.FC = () => {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [isFullscreen, setIsFullscreen] = useState(false);
   
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isProgressOpen, setIsProgressOpen] = useState(false);
   const [isLoadingSheet, setIsLoadingSheet] = useState(false);
   const [syncStatus, setSyncStatus] = useState<'idle' | 'syncing' | 'success' | 'error'>('idle');
@@ -229,7 +227,6 @@ const App: React.FC = () => {
             {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
           </button>
           <button onClick={() => setIsProgressOpen(true)} className="p-2 hover:bg-white/10 rounded-full transition-colors"><BarChart3 className="w-5 h-5" /></button>
-          <button onClick={() => setIsSettingsOpen(true)} className="p-2 hover:bg-white/10 rounded-full transition-colors"><SettingsIcon className="w-5 h-5" /></button>
         </div>
       </header>
 
@@ -237,6 +234,8 @@ const App: React.FC = () => {
         <Tab icon={<Search />} label="Search" active={mode === 'search'} onClick={() => setMode('search')} />
         <Tab icon={<BookOpen />} label="Anki" active={mode === 'flashcards'} onClick={() => setMode('flashcards')} />
         <Tab icon={<GraduationCap />} label="Quiz" active={mode === 'quiz'} onClick={() => setMode('quiz')} />
+        <Tab icon={<Building2 />} label="Ward" active={mode === 'ward'} onClick={() => setMode('ward')} />
+        <Tab icon={<Stethoscope />} label="Clinical" active={mode === 'clinical'} onClick={() => setMode('clinical')} />
       </nav>
 
       {mode === 'quiz' && (
@@ -264,9 +263,18 @@ const App: React.FC = () => {
             <QuizView drugs={drugs.filter(d => d && (systemFilter === 'All' || d.system === systemFilter))} stats={stats} onUpdateStats={(s) => {setStats(s); saveStats(s);}} settings={settings} speak={speak} />
           </div>
         )}
+        {mode === 'ward' && (
+          <div className="h-full flex items-center justify-center p-6 text-center text-slate-600">
+            <p className="text-sm font-semibold">Ward mode is ready for your ward-focused workflow.</p>
+          </div>
+        )}
+        {mode === 'clinical' && (
+          <div className="h-full flex items-center justify-center p-6 text-center text-slate-600">
+            <p className="text-sm font-semibold">Clinical mode is ready for your clinical practice workflow.</p>
+          </div>
+        )}
       </main>
 
-      {isSettingsOpen && <SettingsPanel voices={voices} settings={settings} onSave={(s) => {setSettings(s); saveSettings(s); setIsSettingsOpen(false);}} onClose={() => setIsSettingsOpen(false)} />}
       {isProgressOpen && <ProgressModal stats={stats} onClose={() => setIsProgressOpen(false)} />}
     </div>
   );
