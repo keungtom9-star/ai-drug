@@ -34,7 +34,7 @@ export interface QuizStats {
 }
 
 
-export type AppMode = 'search' | 'flashcards' | 'quiz';
+export type AppMode = 'search' | 'flashcards' | 'quiz' | 'ward' | 'clinical';
 
 export type AILanguage = 'english' | 'cantonese' | 'lihkg';
 
